@@ -1,0 +1,13 @@
+name: Docker Image - Sprawozdanie 2
+on: push
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v3 
+- name: Build and push the image
+run: | 
+docker login --username pielakm --password ${{ secrets.GH_PAT }} ghcr.io
+docker build . -t ghcr.io/pielakm/web:spr2
+docker run -d --name sprawozdanie2_git -p 8096:8080 ghcr.io/pielakm/web:spr2
+docker push ghcr.io/pielakm/web:spr2
